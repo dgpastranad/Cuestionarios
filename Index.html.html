@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Calidad de Vida en Niños con Asma</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .intro {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .activities-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .activities-list div {
+            padding: 5px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e8e8e8;
+        }
+        
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .scale-labels {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .scale-labels-8 {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            justify-items: center;
+        }
+        
+        .radio-group-8 {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            justify-items: center;
+        }
+        
+        .radio-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
+        .radio-option span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 5px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .results {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .results h2 {
+            color: white;
+            border-bottom: 2px solid white;
+            margin-top: 0;
+        }
+        
+        .result-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .result-score {
+            font-size: 32px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .copy-box {
+            background: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #ddd;
+        }
+        
+        .copy-btn {
+            background: white;
+            color: #667eea;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #f0f4ff;
+            transform: scale(1.05);
+        }
+        
+        .warning {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cuestionario de Calidad de Vida en Niños con Asma</h1>
+        
+        <div class="intro">
+            <h2 style="margin-top: 0; border: none;">Actividades</h2>
+            <p style="margin-bottom: 15px;">Por culpa del asma puedes haber encontrado algunas dificultades para hacer algunas de las cosas que te gusta hacer o las puedes haber encontrado poco divertidas.</p>
+            <p style="margin-bottom: 15px;">Me gustaría que pensaras en todas las cosas que haces en las cuales has tenido molestias a causa de tu asma.</p>
+            <p>Algunas personas sienten molestias a causa del asma cuando hacen algunas de las cosas siguientes. Por favor, lee la lista. Piensa en cómo tu asma te ha molestado durante los últimos 7 días.</p>
+        </div>
+        
+        <div class="activities-list">
+            <div>1. Reír</div>
+            <div>2. Correr</div>
+            <div>3. Subir una cuesta</div>
+            <div>4. Subir escaleras</div>
+            <div>5. Caminar</div>
+            <div>6. Estar en un sitio cerrado</div>
+            <div>7. Jugar en el recreo</div>
+            <div>8. Jugar con los amigos</div>
+            <div>9. Salir con los amigos</div>
+            <div>10. Jugar con animales domésticos</div>
+            <div>11. Bailar</div>
+            <div>12. Dormir</div>
+            <div>13. Levantarse por la mañana</div>
+            <div>14. Hacer trabajos domésticos</div>
+            <div>15. Hablar</div>
+            <div>16. Cantar</div>
+            <div>17. Gritar</div>
+            <div>18. Hacer manualidades o hobbies</div>
+            <div>19. Estudiar</div>
+            <div>20. Fútbol</div>
+            <div>21. Montar en bicicleta</div>
+            <div>22. Baloncesto</div>
+            <div>23. Natación</div>
+            <div>24. Judo, karate, tae-kwondo</div>
+            <div>25. Tenis</div>
+            <div>26. Frontón</div>
+            <div>27. Atletismo</div>
+            <div>28. Ir en monopatín</div>
+            <div>29. Ir de excursión</div>
+            <div>30. Rugby</div>
+            <div>31. Voleibol</div>
+            <div>32. Patinar</div>
+            <div>33. Gimnasia</div>
+            <div>34. Esquiar</div>
+            <div>35. Hockey</div>
+            <div>36. Escalar</div>
+            <div>37. Saltar a la comba</div>
+        </div>
+        
+        <p style="margin-bottom: 20px; font-weight: 600;">En las líneas siguientes escribe las tres actividades en las que el asma te haya molestado más. Queremos saber cuánto te ha molestado el asma para hacer estas cosas durante los últimos 7 días.</p>
+        
+        <form id="asthmaForm">
+            <div class="input-group">
+                <label for="activity1">Actividad 1:</label>
+                <input type="text" id="activity1" name="activity1" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="activity2">Actividad 2:</label>
+                <input type="text" id="activity2" name="activity2" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="activity3">Actividad 3:</label>
+                <input type="text" id="activity3" name="activity3" required>
+            </div>
+            
+            <h2>¿Cuánto te ha molestado el asma para hacer las siguientes actividades durante los últimos 7 días?</h2>
+            
+            <div class="question">
+                <div class="question-text">1. <span id="activityLabel1"></span></div>
+                <div class="scale-labels-8">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                    <div>No he hecho la actividad</div>
+                </div>
+                <div class="radio-group-8">
+                    <div class="radio-option"><input type="radio" name="q1" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q1" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q1" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q1" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q1" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q1" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q1" value="7"><span>7</span></div>
+                    <div class="radio-option"><input type="radio" name="q1" value="0"><span>N/A</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">2. <span id="activityLabel2"></span></div>
+                <div class="scale-labels-8">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                    <div>No he hecho la actividad</div>
+                </div>
+                <div class="radio-group-8">
+                    <div class="radio-option"><input type="radio" name="q2" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q2" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q2" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q2" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q2" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q2" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q2" value="7"><span>7</span></div>
+                    <div class="radio-option"><input type="radio" name="q2" value="0"><span>N/A</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">3. <span id="activityLabel3"></span></div>
+                <div class="scale-labels-8">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                    <div>No he hecho la actividad</div>
+                </div>
+                <div class="radio-group-8">
+                    <div class="radio-option"><input type="radio" name="q3" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q3" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q3" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q3" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q3" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q3" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q3" value="7"><span>7</span></div>
+                    <div class="radio-option"><input type="radio" name="q3" value="0"><span>N/A</span></div>
+                </div>
+            </div>
+            
+            <h2>¿Cuánto te ha molestado durante los últimos 7 días...</h2>
+            
+            <div class="question">
+                <div class="question-text">4. la tos?</div>
+                <div class="scale-labels">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q4" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q4" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q4" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q4" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q4" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q4" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q4" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>En general, ¿con qué frecuencia durante los últimos 7 días te has sentido...</h2>
+            
+            <div class="question">
+                <div class="question-text">5. desilusionado o triste por no haber podido hacer lo que querías debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q5" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q5" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q5" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q5" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q5" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q5" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q5" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">6. cansado debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q6" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q6" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q6" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q6" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q6" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q6" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q6" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">7. preocupado o inquieto debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q7" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q7" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q7" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q7" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q7" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q7" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q7" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>¿Cuánto te ha molestado durante los últimos 7 días...</h2>
+            
+            <div class="question">
+                <div class="question-text">8. los ataques de asma?</div>
+                <div class="scale-labels">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q8" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q8" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q8" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q8" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q8" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q8" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q8" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>En general, ¿con qué frecuencia durante los últimos 7 días te has sentido...</h2>
+            
+            <div class="question">
+                <div class="question-text">9. enfadado debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q9" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q9" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q9" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q9" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q9" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q9" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q9" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>¿Cuánto te han molestado durante los últimos 7 días...</h2>
+            
+            <div class="question">
+                <div class="question-text">10. los pitos o silbidos en el pecho?</div>
+                <div class="scale-labels">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q10" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q10" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q10" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q10" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q10" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q10" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q10" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>En general, ¿con qué frecuencia durante los últimos 7 días te has sentido...</h2>
+            
+            <div class="question">
+                <div class="question-text">11. irritable o de mal humor a causa del asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q11" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q11" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q11" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q11" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q11" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q11" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q11" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>¿Cuánto te ha molestado durante los últimos 7 días...</h2>
+            
+            <div class="question">
+                <div class="question-text">12. la dificultad para respirar o la opresión en el pecho?</div>
+                <div class="scale-labels">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q12" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q12" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q12" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q12" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q12" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q12" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q12" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>En general, ¿con qué frecuencia durante los últimos 7 días te has sentido...</h2>
+            
+            <div class="question">
+                <div class="question-text">13. diferente o que te han dejado de lado debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q13" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q13" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q13" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q13" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q13" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q13" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q13" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>¿Cuánto te ha molestado durante los últimos 7 días...</h2>
+            
+            <div class="question">
+                <div class="question-text">14. la falta de aire?</div>
+                <div class="scale-labels">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q14" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q14" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q14" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q14" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q14" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q14" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q14" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>En general, ¿con qué frecuencia durante los últimos 7 días te has sentido...</h2>
+            
+            <div class="question">
+                <div class="question-text">15. desilusionado o triste porque no podías seguir el ritmo de los demás?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q15" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q15" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q15" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q15" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q15" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q15" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q15" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">16. te has despertado por la noche debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q16" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q16" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q16" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q16" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q16" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q16" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q16" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">17. te has sentido nervioso o molesto debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q17" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q17" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q17" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q17" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q17" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q17" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q17" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">18. has notado que te quedabas sin aire?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q18" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q18" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q18" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q18" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q18" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q18" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q18" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">19. has notado que no podías seguir el ritmo de los demás debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q19" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q19" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q19" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q19" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q19" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q19" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q19" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">20. dormiste mal por la noche debido al asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q20" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q20" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q20" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q20" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q20" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q20" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q20" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">21. has tenido miedo durante un ataque de asma?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q21" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q21" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q21" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q21" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q21" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q21" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q21" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>Piensa en todas las actividades o cosas que hiciste durante los últimos 7 días</h2>
+            
+            <div class="question">
+                <div class="question-text">22. ¿Cuánto te molestó el asma mientras las hacías?</div>
+                <div class="scale-labels">
+                    <div>Me ha molestado muchísimo</div>
+                    <div>Me ha molestado mucho</div>
+                    <div>Me ha molestado bastante</div>
+                    <div>Me ha molestado regular</div>
+                    <div>Me ha molestado poco</div>
+                    <div>No me ha molestado casi nada</div>
+                    <div>No me ha molestado nada</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q22" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q22" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q22" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q22" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q22" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q22" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q22" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <h2>En general, ¿con qué frecuencia durante los últimos 7 días</h2>
+            
+            <div class="question">
+                <div class="question-text">23. te ha costado respirar hondo?</div>
+                <div class="scale-labels">
+                    <div>Siempre</div>
+                    <div>Casi siempre</div>
+                    <div>Muchas veces</div>
+                    <div>Bastantes veces</div>
+                    <div>Algunas veces</div>
+                    <div>Casi nunca</div>
+                    <div>Nunca</div>
+                </div>
+                <div class="radio-group">
+                    <div class="radio-option"><input type="radio" name="q23" value="1" required><span>1</span></div>
+                    <div class="radio-option"><input type="radio" name="q23" value="2"><span>2</span></div>
+                    <div class="radio-option"><input type="radio" name="q23" value="3"><span>3</span></div>
+                    <div class="radio-option"><input type="radio" name="q23" value="4"><span>4</span></div>
+                    <div class="radio-option"><input type="radio" name="q23" value="5"><span>5</span></div>
+                    <div class="radio-option"><input type="radio" name="q23" value="6"><span>6</span></div>
+                    <div class="radio-option"><input type="radio" name="q23" value="7"><span>7</span></div>
+                </div>
+            </div>
+            
+            <div class="warning" id="warning">Por favor, completa todas las preguntas antes de calcular los resultados.</div>
+            
+            <button type="submit" class="btn">Calcular Resultados</button>
+        </form>
+        
+        <div class="results" id="results">
+            <h2>Resultados del Cuestionario</h2>
+            
+            <div class="result-item">
+                <strong>PUNTUACIÓN TOTAL:</strong>
+                <div class="result-score" id="totalScore"></div>
+                <span>/7</span>
+            </div>
+            
+            <div class="result-item">
+                <strong>DOMINIO: LIMITACIÓN DE ACTIVIDADES</strong>
+                <div>Preguntas 1-3</div>
+                <div class="result-score" id="activityScore"></div>
+                <span>/7</span>
+            </div>
+            
+            <div class="result-item">
+                <strong>DOMINIO: SÍNTOMAS</strong>
+                <div>Preguntas 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 23</div>
+                <div class="result-score" id="symptomsScore"></div>
+                <span>/7</span>
+            </div>
+            
+            <div class="result-item">
+                <strong>DOMINIO: FUNCIÓN EMOCIONAL</strong>
+                <div>Preguntas 5, 7, 9, 11, 13, 15, 17, 19, 21</div>
+                <div class="result-score" id="emotionalScore"></div>
+                <span>/7</span>
+            </div>
+            
+            <h2 style="margin-top: 30px;">Texto para Historia Clínica</h2>
+            <div class="copy-box" id="copyBox"></div>
+            <button class="copy-btn" onclick="copyToClipboard()">Copiar al Portapapeles</button>
+        </div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('asthmaForm');
+        const activity1Input = document.getElementById('activity1');
+        const activity2Input = document.getElementById('activity2');
+        const activity3Input = document.getElementById('activity3');
+        
+        activity1Input.addEventListener('input', () => {
+            document.getElementById('activityLabel1').textContent = activity1Input.value;
+        });
+        
+        activity2Input.addEventListener('input', () => {
+            document.getElementById('activityLabel2').textContent = activity2Input.value;
+        });
+        
+        activity3Input.addEventListener('input', () => {
+            document.getElementById('activityLabel3').textContent = activity3Input.value;
+        });
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            let allAnswered = true;
+            
+            for (let i = 1; i <= 23; i++) {
+                if (!formData.get('q' + i)) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+            
+            if (!allAnswered) {
+                document.getElementById('warning').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('warning').style.display = 'none';
+            
+            let scores = [];
+            for (let i = 1; i <= 23; i++) {
+                const value = parseInt(formData.get('q' + i));
+                if (value > 0) {
+                    scores.push(value);
+                }
+            }
+            
+            const activityScores = [];
+            for (let i = 1; i <= 3; i++) {
+                const value = parseInt(formData.get('q' + i));
+                if (value > 0) {
+                    activityScores.push(value);
+                }
+            }
+            
+            const symptomsQuestions = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 23];
+            const symptomsScores = symptomsQuestions.map(q => parseInt(formData.get('q' + q)));
+            
+            const emotionalQuestions = [5, 7, 9, 11, 13, 15, 17, 19, 21];
+            const emotionalScores = emotionalQuestions.map(q => parseInt(formData.get('q' + q)));
+            
+            const totalScore = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2);
+            const activityScore = activityScores.length > 0 ? (activityScores.reduce((a, b) => a + b, 0) / activityScores.length).toFixed(2) : 'N/A';
+            const symptomsScore = (symptomsScores.reduce((a, b) => a + b, 0) / symptomsScores.length).toFixed(2);
+            const emotionalScore = (emotionalScores.reduce((a, b) => a + b, 0) / emotionalScores.length).toFixed(2);
+            
+            document.getElementById('totalScore').textContent = totalScore;
+            document.getElementById('activityScore').textContent = activityScore;
+            document.getElementById('symptomsScore').textContent = symptomsScore;
+            document.getElementById('emotionalScore').textContent = emotionalScore;
+            
+            const fecha = new Date().toLocaleDateString('es-ES');
+            
+            const activities = [
+                formData.get('activity1'),
+                formData.get('activity2'),
+                formData.get('activity3')
+            ];
+            
+            const copyText = `CUESTIONARIO DE CALIDAD DE VIDA EN NIÑOS CON ASMA
+Fecha de evaluación: ${fecha}
+
+ACTIVIDADES MÁS AFECTADAS:
+1. ${activities[0]}
+2. ${activities[1]}
+3. ${activities[2]}
+
+RESULTADOS:
+
+Puntuación Total: ${totalScore}/7
+${parseFloat(totalScore) >= 6 ? '(Buena calidad de vida)' : parseFloat(totalScore) >= 4 ? '(Calidad de vida moderada)' : '(Calidad de vida afectada)'}
+
+DOMINIOS:
+
+1. Limitación de Actividades: ${activityScore}/7
+   ${activityScore !== 'N/A' && parseFloat(activityScore) >= 6 ? '(Mínima limitación)' : activityScore !== 'N/A' && parseFloat(activityScore) >= 4 ? '(Limitación moderada)' : activityScore !== 'N/A' ? '(Limitación significativa)' : ''}
+
+2. Síntomas: ${symptomsScore}/7
+   ${parseFloat(symptomsScore) >= 6 ? '(Síntomas mínimos)' : parseFloat(symptomsScore) >= 4 ? '(Síntomas moderados)' : '(Síntomas significativos)'}
+
+3. Función Emocional: ${emotionalScore}/7
+   ${parseFloat(emotionalScore) >= 6 ? '(Buen estado emocional)' : parseFloat(emotionalScore) >= 4 ? '(Afectación emocional moderada)' : '(Afectación emocional significativa)'}
+
+INTERPRETACIÓN:
+Puntuaciones más altas indican mejor calidad de vida (escala 1-7).
+Las puntuaciones se han calculado como promedio de las respuestas en cada dominio.`;
+            
+            document.getElementById('copyBox').textContent = copyText;
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        function copyToClipboard() {
+            const copyText = document.getElementById('copyBox').textContent;
+            navigator.clipboard.writeText(copyText).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copiado!';
+                btn.style.background = '#4CAF50';
+                btn.style.color = 'white';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
